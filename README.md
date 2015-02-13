@@ -43,6 +43,7 @@ class PeopleController < ApplicationController
     when :edit
       # ...
     # ...
+    end
   end
 
   private
@@ -60,15 +61,31 @@ class PeopleController < ApplicationController
 end
 ```
 
-The ```pre_render()``` method will be called right before Rails' ```render()``` method.  This will give your controller a last chance to
-fully initialize any instance variables a view might need to render itself.  If you are using any view model construct, this is a
-good place to initialize or finish initializing it.
+The ```pre_render()``` method will be called right before Rails' ```render()``` method.  This will give your controller a last chance
+to fully initialize any instance variables a view might need to render itself.  If you are using some sort of view model or
+presenter construct, this is a good place to initialize or finish initializing it.
+
+The usefulness of this construct becomes apparent when validation comes into play.  Suppose your ```Person``` model looks like this:
+
+```ruby
+class Person < ActiveRecord::Base
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+  validates :age, presence: true
+end
+```
+
+When someone goes to create a new ```Person``` record, but forgets to enter a required field and hits the ```Create``` button,
+```PeopleController#create()``` will refuse to create the record due to failed validation.  At that point, the controller will want
+to render the ```new``` view once more, even though the ```action_name``` is ```create```.  Except this time when ```pre_render()```
+is called, the ```view``` argument will rightly be ```:new```, allowing you to do whatever is needed to ensure the view
+renders successfully.
 
 ## Credits
 
-The idea for this gem came from my time spent working as a classic ASP.NET developer.  The classic ASP.NET page event model
-also supports the notion of a ```PreRender()``` method being called right before the ```Render()``` method to allow an application's
-code-behind class to finish initialization of its properties and fields.
+The idea for this gem came from my time spent working as a classic ASP.NET developer.  The ASP.NET Page Event model supports the
+notion of a ```PreRender()``` method being called right before the ```Render()``` method to allow an application's code-behind
+class to finish initialization of its properties and fields.
 
 I found this to be useful then, as I do now in the Rails world.
 
