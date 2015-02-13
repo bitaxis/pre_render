@@ -22,7 +22,7 @@ if defined?(Rails)
         view = args[0].is_a?(Hash) ? (args[0][:action] || action_name) : (args[0] || action_name)
         self.pre_render(view.to_sym, *args)
       end
-      super # invokes the actual render() method
+      super # invoke the actual render() method
     end
 
   end
