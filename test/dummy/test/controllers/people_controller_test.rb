@@ -2,6 +2,10 @@ require 'test_helper'
 
 class PeopleControllerTest < ActionController::TestCase
 
+  setup do
+    @person = people(:one)
+  end
+
   test "should get index" do
     assert_difference -> { PeopleController.pre_render_invocation_count } do
       get :index
