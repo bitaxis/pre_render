@@ -5,6 +5,7 @@ require "pre_render/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
+
   s.name        = "pre_render"
   s.version     = PreRender::VERSION
   s.authors     = ["Nathan Brazil"]
@@ -19,5 +20,8 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails", "~> 4.2.0"
 
+  s.add_development_dependency "byebug"
   s.add_development_dependency "sqlite3"
+  s.add_development_dependency "yard"
+
 end
