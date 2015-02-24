@@ -7,7 +7,7 @@ class PeopleControllerTest < ActionController::TestCase
   end
 
   test "should get index" do
-    assert_difference -> { PeopleController.pre_render_invocation_count } do
+    assert_difference -> { @controller.pre_render_invocation_count } do
       get :index
     end
     assert_response :success
