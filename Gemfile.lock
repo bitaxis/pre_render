@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    pre_render (0.0.5)
+    pre_render (1.0.0)
       rails (~> 4.2.0)
 
 GEM

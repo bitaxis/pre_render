@@ -1,6 +1,3 @@
-##
-# Augments a Rails application's controller.
-
 ActionController::Base.class_eval do
 
   ##
