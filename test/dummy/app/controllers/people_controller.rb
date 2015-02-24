@@ -46,19 +46,20 @@ class PeopleController < ApplicationController
   end
 
   ##
-  # Set meta-accessor to keep track of how many times pre_render was invoked
+  # Set class accessor to keep track of how many times pre_render was invoked
 
-  mattr_accessor :pre_render_invocation_count
+  cattr_accessor :pre_render_invocation_count
   self.pre_render_invocation_count = 0
 
   protected
 
   def pre_render(view, *args)
+    self.pre_render_invocation_count += 1
     logger.info ">>>>>"
     logger.info "PreRender::VERSION = #{PreRender::VERSION}"
     logger.info "About to render \"#{view}\" for #{self.class}"
+    logger.info "invocation count = #{self.pre_render_invocation_count}"
     logger.info ">>>>>"
-    self.pre_render_invocation_count += 1
   end
 
   private
